@@ -139,6 +139,8 @@ private:
 	wchar_t m_charBuffer[CHAR_BUFFER_SIZE];
 	int m_charBufferHead;
 	int m_charBufferTail;
+	
+	bool IsGameInFront();
 };
 
 extern KeyboardMouseInput g_KBMInput;

@@ -4,6 +4,7 @@
 
 #include "KeyboardMouseInput.h"
 #include <cmath>
+#include <windows.h>
 
 KeyboardMouseInput g_KBMInput;
 
@@ -125,16 +126,40 @@ void KeyboardMouseInput::Tick()
 		}
 	}
 
-	if ((m_mouseGrabbed || m_cursorHiddenForUI) && g_hWnd)
-	{
-		RECT rc;
-		GetClientRect(g_hWnd, &rc);
-		POINT center;
-		center.x = (rc.right - rc.left) / 2;
-		center.y = (rc.bottom - rc.top) / 2;
-		ClientToScreen(g_hWnd, &center);
-		SetCursorPos(center.x, center.y);
-	}
+	#ifdef _WINDOWS64
+		if (!IsGameInFront())
+		{
+			ClipCursor(NULL);
+			while (ShowCursor(TRUE) < 0) {}
+		}
+		else if (m_cursorHiddenForUI)
+		{
+			ClipCursor(NULL);
+		}
+		else if (m_mouseGrabbed && g_hWnd)
+		{
+			ClipCursorToWindow(g_hWnd);
+		
+			RECT rc;
+			GetClientRect(g_hWnd, &rc);
+			POINT center;
+			center.x = (rc.right - rc.left) / 2;
+			center.y = (rc.bottom - rc.top) / 2;
+			ClientToScreen(g_hWnd, &center);
+			SetCursorPos(center.x, center.y);
+		}
+	#else
+		if ((m_mouseGrabbed || m_cursorHiddenForUI) && g_hWnd)
+		{
+			RECT rc;
+			GetClientRect(g_hWnd, &rc);
+			POINT center;
+			center.x = (rc.right - rc.left) / 2;
+			center.y = (rc.bottom - rc.top) / 2;
+			ClientToScreen(g_hWnd, &center);
+			SetCursorPos(center.x, center.y);
+		}
+	#endif
 }
 
 void KeyboardMouseInput::OnKeyDown(int vkCode)
@@ -406,6 +431,12 @@ void KeyboardMouseInput::ClearCharBuffer()
 {
 	m_charBufferHead = 0;
 	m_charBufferTail = 0;
+}
+
+bool KeyboardMouseInput::IsGameInFront()
+{
+    HWND InFrontWindow = GetForegroundWindow();
+    return (InFrontWindow == g_hWnd);
 }
 
 #endif // _WINDOWS64
