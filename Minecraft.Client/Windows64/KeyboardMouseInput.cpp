@@ -409,10 +409,4 @@ void KeyboardMouseInput::ClearCharBuffer()
 	m_charBufferTail = 0;
 }
 
-bool KeyboardMouseInput::IsGameInFront()
-{
-    HWND InFrontWindow = GetForegroundWindow();
-    return (InFrontWindow == g_hWnd);
-}
-
 #endif // _WINDOWS64
