@@ -145,4 +145,4 @@ private:
 
 extern KeyboardMouseInput g_KBMInput;
 
-#endif // _WINDOWS64
+#endif
