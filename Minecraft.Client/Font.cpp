@@ -281,6 +281,11 @@ void Font::draw(const wstring& str, int x, int y, int color)
 	draw(str, x, y, color, false);
 }
 
+void Font::drawLiteralPublic(const wstring& str, int x, int y, int color)
+{
+    drawLiteral(str, x, y, color);
+}
+
 wstring Font::reorderBidi(const wstring &str)
 {
 	// 4J Not implemented
