@@ -972,6 +972,28 @@ void Gui::render(float a, bool mouseFree, int xMouse, int yMouse)
     glDisable(GL_ALPHA_TEST);
 
 #if defined(_WINDOWS64)
+	int uiSetting = app.GetGameSettings(iPad, eGameSetting_UISize); 
+	
+    float scaleFactor = 1.0f;
+	float textScale = 0.6f;
+	int backgroundtop = 13;
+
+	if (uiSetting == 0)
+    {
+        textScale = textScale * 1.5;
+		int backgroundtop = 10;
+    }
+    else if (uiSetting == 1)
+    {
+        textScale = textScale * 1;
+		int backgroundtop = 13;
+    }
+    else if (uiSetting == 2)
+    {
+        textScale = textScale * 0.75;
+		int backgroundtop = 16;
+    }
+
     glPushMatrix();
     glTranslatef(0.0f, static_cast<float>(screenHeight - iSafezoneYHalf - iTooltipsYOffset - 16 - 3 + 22) - 24.0f, 0.0f);
 
@@ -1007,8 +1029,8 @@ void Gui::render(float a, bool mouseFree, int xMouse, int yMouse)
 
 					glPushMatrix();
 					glTranslatef((float)(iSafezoneXHalf+4), (float)(y), 0);
-					glScalef(0.6f, 0.6f, 1.0f);
-					font->drawShadowLiteral(msg, 0, 0, 0xffffff + (alpha << 24));
+					glScalef(textScale, textScale, scaleFactor);
+					font->drawShadowLiteralCustom(msg, 0, 0, 0xffffff + (alpha << 24), 0x000000 + (alpha << 24));
 					glPopMatrix();
 				}
 			}
