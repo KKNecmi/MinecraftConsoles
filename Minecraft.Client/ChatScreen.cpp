@@ -148,28 +148,41 @@ void ChatScreen::render(int xm, int ym, float a)
     int barBottomOffset = 2;
     int textYOffset = 12;
     int yAdjust = 0;
+    int widthsubtract = 2;
 
     if (uiSetting == 0) 
     {
-        textScale = textScale * 1.5f;
-        yAdjust = 70;
+        textScale = textScale * 1.25f;
+        barTopOffset = 10;
+        barBottomOffset = 0;
+        textYOffset = 8;
+        yAdjust = 115;
+        widthsubtract = -210;
     }
     else if (uiSetting == 1)
     {
         textScale = textScale * 1.0f;
+        barTopOffset = 14;
+        barBottomOffset = 2;
+        textYOffset = 12;
         yAdjust = 0;
+        widthsubtract = 2;
     }
     else if (uiSetting == 2)
     {
         textScale = textScale * 0.75f;
-        yAdjust = -70;
+        barTopOffset = 18;
+        barBottomOffset = 6;
+        textYOffset = 16;
+        yAdjust = -58;
+        widthsubtract = 110;
     }
 
     int barY = height - barTopOffset + yAdjust;
     int barBottom = height - barBottomOffset + yAdjust;
     int textY = height - textYOffset + yAdjust;
 
-    fill(2, barY, width - 2, barBottom, 0x80000000);
+    fill(2, barY, width - widthsubtract, barBottom, 0x80000000);
 
     const wstring prefix = L"> ";
     int x = 4;
