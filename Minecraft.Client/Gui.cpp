@@ -994,7 +994,7 @@ void Gui::render(float a, bool mouseFree, int xMouse, int yMouse)
 				if (alpha > 0)
 				{
 					int x = iSafezoneXHalf+2;
-					int y = -(static_cast<int>(i)) * 9 - 20;
+					int y = -(static_cast<int>(i)) * 13 - 19;
 					if(bTwoPlayerSplitscreen)
 					{
 						y+= iHeightOffset;
@@ -1002,14 +1002,10 @@ void Gui::render(float a, bool mouseFree, int xMouse, int yMouse)
 
 					wstring msg = guiMessages[iPad][i].string;
 					int bgColor = ((alpha / 2) << 24) | (0x404040);
-					this->fill(0, y - 1, screenWidth/fScaleFactorWidth, y + 8, bgColor);
+					this->fill(0, y - 3 - 1, screenWidth/fScaleFactorWidth, y + 10 - 1, bgColor);
 					glEnable(GL_BLEND);
 
-					glPushMatrix();
-					glTranslatef((float)(iSafezoneXHalf+4), (float)y, 0);
-					glScalef(0.6f, 0.6f, 1.0f);
-					font->drawShadow(msg, 0, 0, 0xffffff + (alpha << 24));
-					glPopMatrix();
+					font->drawShadowLiteral(msg, iSafezoneXHalf+4, y + 0, 0xffffff + (alpha << 24));
 				}
 			}
 		}

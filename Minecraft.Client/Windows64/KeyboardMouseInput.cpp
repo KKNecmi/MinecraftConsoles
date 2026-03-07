@@ -4,7 +4,6 @@
 
 #include "KeyboardMouseInput.h"
 #include <cmath>
-#include <windows.h>
 
 KeyboardMouseInput g_KBMInput;
 
