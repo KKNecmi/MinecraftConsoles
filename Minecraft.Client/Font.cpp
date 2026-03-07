@@ -251,9 +251,9 @@ void Font::drawShadowLiteral(const wstring& str, int x, int y, int color)
 	drawLiteral(str, x, y, color);
 }
 
-void Font::drawShadowLiteralCustom(const wstring& str, int x, int y, int color, int shadowColor)
+void Font::drawShadowLiteralCustom(const wstring& str, int x, int y, int xplus, int yplus, int color, int shadowColor)
 {
-    drawLiteral(str, x + 1, y + 1, shadowColor);
+    drawLiteral(str, x + xplus, y + yplus, shadowColor);
     drawLiteral(str, x, y, color);
 }
 
@@ -279,11 +279,6 @@ void Font::drawShadowWordWrap(const wstring &str, int x, int y, int w, int color
 void Font::draw(const wstring& str, int x, int y, int color)
 {
 	draw(str, x, y, color, false);
-}
-
-void Font::drawLiteralPublic(const wstring& str, int x, int y, int color)
-{
-    drawLiteral(str, x, y, color);
 }
 
 wstring Font::reorderBidi(const wstring &str)

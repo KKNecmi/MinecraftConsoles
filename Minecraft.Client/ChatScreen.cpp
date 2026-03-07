@@ -152,26 +152,17 @@ void ChatScreen::render(int xm, int ym, float a)
     if (uiSetting == 0) 
     {
         textScale = textScale * 1.5f;
-        barTopOffset = 10;
-        barBottomOffset = 0;
-        textYOffset = 8;
-        yAdjust = 50;
+        yAdjust = 70;
     }
     else if (uiSetting == 1)
     {
         textScale = textScale * 1.0f;
-        barTopOffset = 14;
-        barBottomOffset = 2;
-        textYOffset = 12;
         yAdjust = 0;
     }
     else if (uiSetting == 2)
     {
         textScale = textScale * 0.75f;
-        barTopOffset = 18;
-        barBottomOffset = 4;
-        textYOffset = 16;
-        yAdjust = -50;
+        yAdjust = -70;
     }
 
     int barY = height - barTopOffset + yAdjust;
@@ -192,7 +183,7 @@ void ChatScreen::render(int xm, int ym, float a)
     glPushMatrix();
     glTranslatef((float)x, (float)textY, 0);
     glScalef(textScale, textScale, 1.0f);
-    font->drawShadowLiteralCustom(beforeCursor, 0, 0, 0xe0e0e0, 0x000000);
+    font->drawShadowLiteralCustom(beforeCursor, 0, 0, 1, 1, 0xe0e0e0, 0x000000);
     glPopMatrix();
 
     x += (int)(font->widthLiteral(beforeCursor) * textScale);
@@ -202,7 +193,7 @@ void ChatScreen::render(int xm, int ym, float a)
         glPushMatrix();
         glTranslatef((float)x, (float)textY, 0);
         glScalef(textScale, textScale, 1.0f);
-        font->drawShadowLiteralCustom(L"_", 0, 0, 0xe0e0e0, 0x000000);
+        font->drawShadowLiteralCustom(L"_", 0, 0, 1, 1, 0xe0e0e0, 0x000000);
         glPopMatrix();
     }
 
@@ -211,7 +202,7 @@ void ChatScreen::render(int xm, int ym, float a)
     glPushMatrix();
     glTranslatef((float)x, (float)textY, 0);
     glScalef(textScale, textScale, 1.0f);
-    font->drawShadowLiteralCustom(afterCursor, 0, 0, 0xe0e0e0, 0x000000);
+    font->drawShadowLiteralCustom(afterCursor, 0, 0, 1, 1, 0xe0e0e0, 0x000000);
     glPopMatrix();
 
     Screen::render(xm, ym, a);
