@@ -74,7 +74,7 @@ ResourceLocation GameRenderer::SNOW_LOCATION = ResourceLocation(TN_ENVIRONMENT_S
 GameRenderer::GameRenderer(Minecraft *mc)
 {
 	// 4J - added this block of initialisers
-	renderDistance = 0;
+	renderDistance = (float)(16 * 16 >> mc->options->viewDistance);
 	_tick = 0;
 	hovered = nullptr;
 	thirdDistance = 4;
@@ -614,7 +614,15 @@ void GameRenderer::getFovAndAspect(float& fov, float& aspect, float a, bool appl
 
 void GameRenderer::setupCamera(float a, int eye)
 {
-	renderDistance = (float)(16 * 16 >> (mc->options->viewDistance));
+	if (mc->options->viewDistance >= 0)
+	{
+		renderDistance = (float)(16 * 16 >> mc->options->viewDistance);
+	}
+	else
+	{
+		renderDistance = (float)((16 * 16) << (-mc->options->viewDistance));
+	}
+
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 
@@ -1350,7 +1358,7 @@ void GameRenderer::DisableUpdateThread()
 #endif
 }
 
-void GameRenderer::renderLevel(float a, __int64 until)
+void GameRenderer::renderLevel(float a, int64_t until)
 {
 	//	if (updateLightTexture) updateLightTexture();	// 4J - TODO - Java 1.0.1 has this line enabled, should check why - don't want to put it in now in case it breaks split-screen
 
@@ -1433,7 +1441,7 @@ void GameRenderer::renderLevel(float a, __int64 until)
 
 				if (until == 0) break;
 
-				__int64 diff = until - System::nanoTime();
+				int64_t diff = until - System::nanoTime();
 				if (diff < 0) break;
 				if (diff > 1000000000) break;
 			} while (true);
